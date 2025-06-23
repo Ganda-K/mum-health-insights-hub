@@ -4,11 +4,10 @@ import {
   Home, 
   Users, 
   MessageSquare, 
-  Calendar, 
+  BarChart3, 
   Settings, 
   Bell,
-  HelpCircle,
-  AlertTriangle
+  User
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -22,9 +21,7 @@ const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
     { id: 'dashboard', label: 'Dashboard', icon: Home },
     { id: 'mothers', label: 'Mothers', icon: Users },
     { id: 'messages', label: 'Messages', icon: MessageSquare },
-    { id: 'appointments', label: 'Appointments', icon: Calendar },
-    { id: 'highrisk', label: 'High Risk', icon: AlertTriangle },
-    { id: 'help', label: 'Help & Support', icon: HelpCircle },
+    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
@@ -44,7 +41,7 @@ const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
             </div>
           </div>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6">
             {navigationItems.map((item) => {
               const Icon = item.icon;
               return (
@@ -60,7 +57,7 @@ const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
                   }`}
                 >
                   <Icon className="h-4 w-4" />
-                  <span className="hidden md:inline text-xs">{item.label}</span>
+                  <span className="hidden md:inline">{item.label}</span>
                 </Button>
               );
             })}
