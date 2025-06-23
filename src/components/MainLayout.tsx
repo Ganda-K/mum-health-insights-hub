@@ -4,9 +4,14 @@ import Navigation from './Navigation';
 import Dashboard from './Dashboard';
 import PatientProfile from './PatientProfile';
 import PlaceholderSection from './PlaceholderSection';
+import MessagesSection from './MessagesSection';
+import AppointmentsSection from './AppointmentsSection';
+import SettingsSection from './SettingsSection';
+import HelpSupportSection from './HelpSupportSection';
+import HighRiskSection from './HighRiskSection';
 
 const MainLayout = () => {
-  const [activeSection, setActiveSection] = useState('mothers');
+  const [activeSection, setActiveSection] = useState('dashboard');
   const [selectedPatient, setSelectedPatient] = useState(null);
 
   const handlePatientSelect = (patient: any) => {
@@ -28,16 +33,20 @@ const MainLayout = () => {
     }
 
     switch (activeSection) {
+      case 'dashboard':
+        return <Dashboard onPatientSelect={handlePatientSelect} />;
       case 'mothers':
         return <Dashboard onPatientSelect={handlePatientSelect} />;
-      case 'dashboard':
-        return <PlaceholderSection title="Dashboard Overview" />;
       case 'messages':
-        return <PlaceholderSection title="SMS/USSD Messages" />;
-      case 'analytics':
-        return <PlaceholderSection title="Analytics & Reports" />;
+        return <MessagesSection />;
+      case 'appointments':
+        return <AppointmentsSection />;
       case 'settings':
-        return <PlaceholderSection title="System Settings" />;
+        return <SettingsSection />;
+      case 'help':
+        return <HelpSupportSection />;
+      case 'highrisk':
+        return <HighRiskSection />;
       default:
         return <Dashboard onPatientSelect={handlePatientSelect} />;
     }

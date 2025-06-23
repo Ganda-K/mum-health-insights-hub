@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React from 'react';
 import { 
   Heart, 
   Users, 
@@ -6,233 +7,218 @@ import {
   AlertTriangle, 
   Calendar,
   MapPin,
-  Phone,
   Baby,
   Activity,
-  FileText,
-  Bell
+  Bell,
+  Map
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 
 interface DashboardProps {
-  onPatientSelect: (patient: any) => void;
+  onPatientSelect?: (patient: any) => void;
 }
 
 const Dashboard = ({ onPatientSelect }: DashboardProps) => {
-  const patients = [
-    {
-      id: 1,
-      name: "Amina Hassan",
-      age: 24,
-      village: "Kivuko",
-      phone: "+255 123 456 789",
-      dueDate: "2024-08-15",
-      previousBirths: 1,
-      hemoglobin: 10.2,
-      anemiaStatus: "Mild Anemia",
-      riskFactors: ["Previous complications", "Low hemoglobin"],
-      currentRiskStatus: "Medium",
-      riskScore: 65,
-      lastCheckIn: "2024-06-20",
-      symptoms: [
-        { date: "2024-06-20", fatigue: "Moderate", dizziness: "Mild", bleeding: "None" },
-        { date: "2024-05-20", fatigue: "Mild", dizziness: "None", bleeding: "None" },
-        { date: "2024-04-20", fatigue: "Severe", dizziness: "Moderate", bleeding: "Light" }
-      ]
-    },
-    {
-      id: 2,
-      name: "Fatuma Mohamed",
-      age: 19,
-      village: "Msimbazi",
-      phone: "+255 987 654 321",
-      dueDate: "2024-07-28",
-      previousBirths: 0,
-      hemoglobin: 8.5,
-      anemiaStatus: "Moderate Anemia",
-      riskFactors: ["First pregnancy", "Young age", "Severe anemia"],
-      currentRiskStatus: "High",
-      riskScore: 85,
-      lastCheckIn: "2024-06-22",
-      symptoms: [
-        { date: "2024-06-22", fatigue: "Severe", dizziness: "Severe", bleeding: "None" },
-        { date: "2024-05-22", fatigue: "Moderate", dizziness: "Mild", bleeding: "None" },
-        { date: "2024-04-22", fatigue: "Moderate", dizziness: "Moderate", bleeding: "None" }
-      ]
-    }
-  ];
-
-  const getRiskColor = (status: string) => {
-    switch (status) {
-      case 'High': return 'bg-red-500';
-      case 'Medium': return 'bg-yellow-500';
-      case 'Low': return 'bg-green-500';
-      default: return 'bg-gray-500';
-    }
-  };
-
-  const getRiskBadgeColor = (status: string) => {
-    switch (status) {
-      case 'High': return 'destructive';
-      case 'Medium': return 'default';
-      case 'Low': return 'secondary';
-      default: return 'outline';
-    }
-  };
-
   return (
     <div className="bg-gradient-to-br from-pink-50 to-rose-100">
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="border-pink-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Total Mothers</CardTitle>
-              <Users className="h-4 w-4 text-pink-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-gray-900">156</div>
-              <p className="text-xs text-green-600 flex items-center mt-1">
-                <TrendingUp className="h-3 w-3 mr-1" />
-                +12% from last month
-              </p>
-            </CardContent>
-          </Card>
+        {/* Welcome Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to Mama Mwiza Dashboard</h1>
+          <p className="text-lg text-gray-600">Comprehensive maternal health monitoring system for Rwanda</p>
+        </div>
 
-          <Card className="border-pink-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">High Risk Cases</CardTitle>
-              <AlertTriangle className="h-4 w-4 text-red-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-gray-900">23</div>
-              <p className="text-xs text-red-600 flex items-center mt-1">
-                <TrendingUp className="h-3 w-3 mr-1" />
-                +3 new alerts
-              </p>
-            </CardContent>
-          </Card>
+        {/* Dashboard Overview Stats */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Dashboard Overview</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="border-pink-200">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-gray-600">Pregnant Women Registered</CardTitle>
+                <Users className="h-4 w-4 text-pink-600" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-gray-900">1,247</div>
+                <p className="text-xs text-green-600 flex items-center mt-1">
+                  <TrendingUp className="h-3 w-3 mr-1" />
+                  +23% from last month
+                </p>
+              </CardContent>
+            </Card>
 
-          <Card className="border-pink-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Check-ins Today</CardTitle>
-              <Activity className="h-4 w-4 text-blue-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-gray-900">42</div>
-              <p className="text-xs text-blue-600 flex items-center mt-1">
-                <Calendar className="h-3 w-3 mr-1" />
-                89% response rate
-              </p>
-            </CardContent>
-          </Card>
+            <Card className="border-pink-200">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-gray-600">High-Risk Women Flagged</CardTitle>
+                <AlertTriangle className="h-4 w-4 text-red-600" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-gray-900">89</div>
+                <p className="text-xs text-red-600 flex items-center mt-1">
+                  <TrendingUp className="h-3 w-3 mr-1" />
+                  +7 new this month
+                </p>
+              </CardContent>
+            </Card>
 
+            <Card className="border-pink-200">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-gray-600">Alerts Pending Follow-up</CardTitle>
+                <Bell className="h-4 w-4 text-orange-600" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-gray-900">34</div>
+                <p className="text-xs text-orange-600 flex items-center mt-1">
+                  <AlertTriangle className="h-3 w-3 mr-1" />
+                  Requires attention
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-pink-200">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-gray-600">Upcoming Deliveries (7 Days)</CardTitle>
+                <Baby className="h-4 w-4 text-purple-600" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-gray-900">18</div>
+                <p className="text-xs text-purple-600 flex items-center mt-1">
+                  <Calendar className="h-3 w-3 mr-1" />
+                  Next week
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* District Risk Overview */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">District Risk Overview - Rwanda</h2>
           <Card className="border-pink-200">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Due This Month</CardTitle>
-              <Baby className="h-4 w-4 text-purple-600" />
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Map className="h-5 w-5 mr-2 text-pink-600" />
+                High-Risk Pregnancy Clusters
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-gray-900">18</div>
-              <p className="text-xs text-purple-600 flex items-center mt-1">
-                <Calendar className="h-3 w-3 mr-1" />
-                7 this week
-              </p>
+              <div className="bg-gray-100 rounded-lg p-8 text-center">
+                <MapPin className="h-12 w-12 text-pink-600 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Interactive Map Coming Soon</h3>
+                <p className="text-gray-600 mb-4">
+                  Visual representation of high-risk pregnancy clusters across Rwanda districts
+                </p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                  <div className="bg-white p-3 rounded-lg">
+                    <div className="text-sm font-medium text-gray-700">Kigali</div>
+                    <div className="text-lg font-bold text-red-600">23</div>
+                    <div className="text-xs text-gray-500">High Risk</div>
+                  </div>
+                  <div className="bg-white p-3 rounded-lg">
+                    <div className="text-sm font-medium text-gray-700">Northern</div>
+                    <div className="text-lg font-bold text-yellow-600">15</div>
+                    <div className="text-xs text-gray-500">Medium Risk</div>
+                  </div>
+                  <div className="bg-white p-3 rounded-lg">
+                    <div className="text-sm font-medium text-gray-700">Southern</div>
+                    <div className="text-lg font-bold text-red-600">19</div>
+                    <div className="text-xs text-gray-500">High Risk</div>
+                  </div>
+                  <div className="bg-white p-3 rounded-lg">
+                    <div className="text-sm font-medium text-gray-700">Eastern</div>
+                    <div className="text-lg font-bold text-green-600">8</div>
+                    <div className="text-xs text-gray-500">Low Risk</div>
+                  </div>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Mothers Section */}
-        <div className="space-y-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-gray-900">Registered Mothers</h2>
-            <Button className="bg-pink-600 hover:bg-pink-700">Add New Mother</Button>
-          </div>
-
-          <div className="grid gap-6">
-            {patients.map((patient) => (
-              <Card key={patient.id} className="border-pink-200 hover:shadow-lg transition-shadow cursor-pointer"
-                    onClick={() => onPatientSelect(patient)}>
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="h-12 w-12 bg-gradient-to-r from-pink-400 to-rose-400 rounded-full flex items-center justify-center">
-                        <span className="text-white font-semibold">{patient.name.charAt(0)}</span>
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900">{patient.name}</h3>
-                        <div className="flex items-center space-x-4 text-sm text-gray-600">
-                          <span className="flex items-center">
-                            <Users className="h-4 w-4 mr-1" />
-                            Age {patient.age}
-                          </span>
-                          <span className="flex items-center">
-                            <MapPin className="h-4 w-4 mr-1" />
-                            {patient.village}
-                          </span>
-                          <span className="flex items-center">
-                            <Phone className="h-4 w-4 mr-1" />
-                            {patient.phone}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <Badge variant={getRiskBadgeColor(patient.currentRiskStatus)} className="text-xs">
-                      {patient.currentRiskStatus} Risk
-                    </Badge>
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="border-pink-200">
+            <CardHeader>
+              <CardTitle className="text-lg">Recent Alerts</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                  <div>
+                    <p className="font-medium text-sm">Severe Anemia Alert</p>
+                    <p className="text-xs text-gray-600">Fatuma M. - Hemoglobin 6.2 g/dL</p>
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div className="bg-pink-50 p-3 rounded-lg">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium text-gray-700">Due Date</span>
-                        <Calendar className="h-4 w-4 text-pink-600" />
-                      </div>
-                      <p className="text-sm text-gray-900">{patient.dueDate}</p>
-                    </div>
-                    
-                    <div className="bg-blue-50 p-3 rounded-lg">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium text-gray-700">Hemoglobin</span>
-                        <Activity className="h-4 w-4 text-blue-600" />
-                      </div>
-                      <p className="text-sm text-gray-900">{patient.hemoglobin} g/dL</p>
-                      <p className="text-xs text-red-600">{patient.anemiaStatus}</p>
-                    </div>
-                    
-                    <div className="bg-purple-50 p-3 rounded-lg">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium text-gray-700">Previous Births</span>
-                        <Baby className="h-4 w-4 text-purple-600" />
-                      </div>
-                      <p className="text-sm text-gray-900">{patient.previousBirths}</p>
-                    </div>
+                  <AlertTriangle className="h-4 w-4 text-red-600" />
+                </div>
+                <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                  <div>
+                    <p className="font-medium text-sm">Missed Check-in</p>
+                    <p className="text-xs text-gray-600">Amina H. - 2 weeks overdue</p>
                   </div>
+                  <Bell className="h-4 w-4 text-orange-600" />
+                </div>
+              </div>
+              <Button className="w-full mt-4 bg-pink-600 hover:bg-pink-700" size="sm">
+                View All Alerts
+              </Button>
+            </CardContent>
+          </Card>
 
-                  <div className="mb-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-700">Risk Score</span>
-                      <span className="text-sm text-gray-600">{patient.riskScore}/100</span>
-                    </div>
-                    <Progress value={patient.riskScore} className="h-2" />
+          <Card className="border-pink-200">
+            <CardHeader>
+              <CardTitle className="text-lg">This Week's Deliveries</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                  <div>
+                    <p className="font-medium text-sm">Grace K.</p>
+                    <p className="text-xs text-gray-600">Due: June 25, 2024</p>
                   </div>
+                  <Baby className="h-4 w-4 text-purple-600" />
+                </div>
+                <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                  <div>
+                    <p className="font-medium text-sm">Sarah N.</p>
+                    <p className="text-xs text-gray-600">Due: June 27, 2024</p>
+                  </div>
+                  <Baby className="h-4 w-4 text-purple-600" />
+                </div>
+              </div>
+              <Button className="w-full mt-4 bg-purple-600 hover:bg-purple-700" size="sm">
+                View Delivery Schedule
+              </Button>
+            </CardContent>
+          </Card>
 
-                  <div className="flex justify-between items-center">
-                    <div className="text-sm text-gray-600">
-                      Last check-in: {patient.lastCheckIn}
-                    </div>
-                    <Button variant="outline" size="sm" className="border-pink-300 text-pink-600 hover:bg-pink-50">
-                      View Profile
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <Card className="border-pink-200">
+            <CardHeader>
+              <CardTitle className="text-lg">System Status</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">SMS Service</span>
+                  <span className="text-green-600 text-xs">●  Online</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">USSD Gateway</span>
+                  <span className="text-green-600 text-xs">●  Online</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">Database</span>
+                  <span className="text-green-600 text-xs">●  Connected</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">Last Backup</span>
+                  <span className="text-gray-600 text-xs">2 hours ago</span>
+                </div>
+              </div>
+              <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700" size="sm">
+                System Settings
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </main>
     </div>
