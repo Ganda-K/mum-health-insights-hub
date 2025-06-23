@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   Heart, 
@@ -17,11 +16,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import PatientProfile from './PatientProfile';
 
-const Dashboard = () => {
-  const [selectedPatient, setSelectedPatient] = useState(null);
+interface DashboardProps {
+  onPatientSelect: (patient: any) => void;
+}
 
+const Dashboard = ({ onPatientSelect }: DashboardProps) => {
   const patients = [
     {
       id: 1,
@@ -65,7 +65,7 @@ const Dashboard = () => {
     }
   ];
 
-  const getRiskColor = (status) => {
+  const getRiskColor = (status: string) => {
     switch (status) {
       case 'High': return 'bg-red-500';
       case 'Medium': return 'bg-yellow-500';
@@ -74,7 +74,7 @@ const Dashboard = () => {
     }
   };
 
-  const getRiskBadgeColor = (status) => {
+  const getRiskBadgeColor = (status: string) => {
     switch (status) {
       case 'High': return 'destructive';
       case 'Medium': return 'default';
@@ -83,42 +83,8 @@ const Dashboard = () => {
     }
   };
 
-  if (selectedPatient) {
-    return (
-      <PatientProfile 
-        patient={selectedPatient} 
-        onBack={() => setSelectedPatient(null)} 
-      />
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-pink-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <img 
-                src="/lovable-uploads/066eada5-d0e8-4f96-b5cf-2afe6f9f8f45.png" 
-                alt="Mama Mwiza Logo" 
-                className="h-8 w-8"
-              />
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Mama Mwiza</h1>
-                <p className="text-sm text-gray-600">Maternal Health Monitoring</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Bell className="h-5 w-5 text-gray-600" />
-              <div className="h-8 w-8 bg-pink-100 rounded-full flex items-center justify-center">
-                <span className="text-sm font-medium text-pink-600">A</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <div className="bg-gradient-to-br from-pink-50 to-rose-100">
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
@@ -190,7 +156,7 @@ const Dashboard = () => {
           <div className="grid gap-6">
             {patients.map((patient) => (
               <Card key={patient.id} className="border-pink-200 hover:shadow-lg transition-shadow cursor-pointer"
-                    onClick={() => setSelectedPatient(patient)}>
+                    onClick={() => onPatientSelect(patient)}>
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center space-x-4">
