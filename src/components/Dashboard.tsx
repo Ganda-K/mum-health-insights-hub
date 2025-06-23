@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import InteractiveMap from './InteractiveMap';
 
 interface DashboardProps {
   onPatientSelect?: (patient: any) => void;
@@ -91,48 +92,10 @@ const Dashboard = ({ onPatientSelect }: DashboardProps) => {
           </div>
         </div>
 
-        {/* District Risk Overview */}
+        {/* District Risk Overview with Interactive Map */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">District Risk Overview - Rwanda</h2>
-          <Card className="border-pink-200">
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Map className="h-5 w-5 mr-2 text-pink-600" />
-                High-Risk Pregnancy Clusters
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="bg-gray-100 rounded-lg p-8 text-center">
-                <MapPin className="h-12 w-12 text-pink-600 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Interactive Map Coming Soon</h3>
-                <p className="text-gray-600 mb-4">
-                  Visual representation of high-risk pregnancy clusters across Rwanda districts
-                </p>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-                  <div className="bg-white p-3 rounded-lg">
-                    <div className="text-sm font-medium text-gray-700">Kigali</div>
-                    <div className="text-lg font-bold text-red-600">23</div>
-                    <div className="text-xs text-gray-500">High Risk</div>
-                  </div>
-                  <div className="bg-white p-3 rounded-lg">
-                    <div className="text-sm font-medium text-gray-700">Northern</div>
-                    <div className="text-lg font-bold text-yellow-600">15</div>
-                    <div className="text-xs text-gray-500">Medium Risk</div>
-                  </div>
-                  <div className="bg-white p-3 rounded-lg">
-                    <div className="text-sm font-medium text-gray-700">Southern</div>
-                    <div className="text-lg font-bold text-red-600">19</div>
-                    <div className="text-xs text-gray-500">High Risk</div>
-                  </div>
-                  <div className="bg-white p-3 rounded-lg">
-                    <div className="text-sm font-medium text-gray-700">Eastern</div>
-                    <div className="text-lg font-bold text-green-600">8</div>
-                    <div className="text-xs text-gray-500">Low Risk</div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <InteractiveMap />
         </div>
 
         {/* Quick Actions */}
