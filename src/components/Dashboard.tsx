@@ -99,11 +99,13 @@ const Dashboard = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <div className="p-2 bg-gradient-to-r from-pink-500 to-rose-500 rounded-lg">
-                <Heart className="h-6 w-6 text-white" />
-              </div>
+              <img 
+                src="/lovable-uploads/066eada5-d0e8-4f96-b5cf-2afe6f9f8f45.png" 
+                alt="Mama Mwiza Logo" 
+                className="h-8 w-8"
+              />
               <div>
-                <h1 className="text-xl font-bold text-gray-900">MumHealth</h1>
+                <h1 className="text-xl font-bold text-gray-900">Mama Mwiza</h1>
                 <p className="text-sm text-gray-600">Maternal Health Monitoring</p>
               </div>
             </div>

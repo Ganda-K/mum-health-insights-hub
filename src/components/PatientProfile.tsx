@@ -87,6 +87,15 @@ const PatientProfile = ({ patient, onBack }) => {
     }
   };
 
+  // Calculate days remaining with proper date handling
+  const calculateDaysRemaining = (dueDate) => {
+    const due = new Date(dueDate);
+    const now = new Date();
+    const timeDiff = due.getTime() - now.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return daysDiff;
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100">
       {/* Header */}
@@ -104,12 +113,16 @@ const PatientProfile = ({ patient, onBack }) => {
                 <span>Back to Dashboard</span>
               </Button>
               <div className="h-6 w-px bg-gray-300 mx-4"></div>
-              <div className="p-2 bg-gradient-to-r from-pink-500 to-rose-500 rounded-lg">
-                <Heart className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">MumHealth</h1>
-                <p className="text-sm text-gray-600">Patient Profile</p>
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="/lovable-uploads/066eada5-d0e8-4f96-b5cf-2afe6f9f8f45.png" 
+                  alt="Mama Mwiza Logo" 
+                  className="h-8 w-8"
+                />
+                <div>
+                  <h1 className="text-xl font-bold text-gray-900">Mama Mwiza</h1>
+                  <p className="text-sm text-gray-600">Patient Profile</p>
+                </div>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -183,7 +196,7 @@ const PatientProfile = ({ patient, onBack }) => {
                     <h4 className="font-semibold text-gray-900 mb-2">Due Date</h4>
                     <p className="text-gray-700">{patient.dueDate}</p>
                     <p className="text-sm text-gray-600 mt-1">
-                      {Math.ceil((new Date(patient.dueDate) - new Date()) / (1000 * 60 * 60 * 24))} days remaining
+                      {calculateDaysRemaining(patient.dueDate)} days remaining
                     </p>
                   </div>
                   
